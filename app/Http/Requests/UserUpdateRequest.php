@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class LoginRequest extends FormRequest
+class UserUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,8 +25,8 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|email',
-            'password' => 'required|string',
+            'name' => 'required|string|unique:users,name',
+            'email' => 'required|email|unique:users,email',
         ];
     }
 
@@ -44,7 +44,7 @@ class LoginRequest extends FormRequest
                     'total' => 0,
                 ],
                 'data' => [
-                    'message' => 'Validation Error',
+                    'message' => 'Validation Error.',
                     'errors' => $validator->errors(),
                 ],
                 'duration' => (float)sprintf("%.3f", (microtime(true) - LARAVEL_START)),
