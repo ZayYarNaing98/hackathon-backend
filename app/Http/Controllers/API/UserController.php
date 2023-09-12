@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\UserUpdateRequest;
+use App\Http\Resources\GetUserListResource;
 
 class UserController extends Controller
 {
@@ -28,9 +29,11 @@ class UserController extends Controller
 
             $startTime = microtime(true);
 
-            $data = $this->service->getUsers();
+            $data = $this->service->getUsers($request);
 
-            return response()->success($request, $data, 'User Retrieved Successfully.', 200, $startTime, count($data));
+            $result = GetUserListResource::collection($data);
+
+            return response()->paginate($request, $result, 'User Retrieved Successfully.', 200, $startTime);
         } catch (Exception $e) {
             Log::channel('hackathon_daily_error')->error('Error User Retrieved' . $e->getMessage());
 

@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\User;
+use Illuminate\Http\Request;
 use App\Interfaces\UserRepositoryInterface;
 
 class UserService
@@ -14,9 +15,9 @@ class UserService
         $this->userInterface = $userInterface;
     }
 
-    public function getUsers()
+    public function getUsers(Request $request)
     {
-        return $this->userInterface->getUsers();
+        return $this->userInterface->getUsers($request);
     }
 
     public function getUserById($id)
@@ -28,7 +29,9 @@ class UserService
     {
         $user = User::create($data);
 
-        // $user->assignRole($data['role']);
+        if (isset($data['role'])) {
+            $user->assignRole($data['role']);
+        }
 
         return $user;
     }
@@ -39,10 +42,12 @@ class UserService
 
         $user = User::find($id);
 
-        // $user->syncRoles($data['role']);
-
         if (!$user) {
             return response()->error(request(), null, 'User not found', 404, $startTime);
+        }
+
+        if (isset($data['role'])) {
+            $user->assignRole($data['role']);
         }
 
         $user->update($data);

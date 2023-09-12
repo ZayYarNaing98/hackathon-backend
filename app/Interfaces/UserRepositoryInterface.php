@@ -2,11 +2,11 @@
 
 namespace App\Interfaces;
 
-use Illuminate\Support\Collection;
+use Illuminate\Http\Request;
 
 interface UserRepositoryInterface
 {
-    public function getUsers():Collection;
+    public function getUsers(Request $request);
 
     public function getUserById($id);
 }

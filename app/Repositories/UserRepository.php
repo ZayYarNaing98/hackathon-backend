@@ -3,14 +3,22 @@
 namespace App\Repositories;
 
 use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 use App\Interfaces\UserRepositoryInterface;
-use Illuminate\Support\Collection;
 
 class UserRepository implements UserRepositoryInterface
 {
-    public function getUsers():Collection
+    protected function limit(Request $request)
     {
-        $data = User::with('roles')->get();
+        $limit = (int) $request->input('limit', Config::get('paginate.default_limit'));
+
+        return $limit;
+    }
+
+    public function getUsers(Request $request)
+    {
+        $data = User::with('roles')->paginate($this->limit($request));
 
         return $data;
     }
@@ -23,9 +31,8 @@ class UserRepository implements UserRepositoryInterface
 
         if ($data) {
             return response()->success(request(), $data, 'User Found Successfully', 200, $startTime, 1);
-        }else {
+        } else {
             return response()->error(request(), null, "User not found", 404, $startTime);
         }
     }
-
 }
