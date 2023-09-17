@@ -18,9 +18,36 @@ class UserRepository implements UserRepositoryInterface
 
     public function getUsers(Request $request)
     {
-        $data = User::with('roles')->paginate($this->limit($request));
+        $search = $request->input('search');
+        $status = $request->input('status');
 
-        return $data;
+        $data = User::with('roles');
+
+        $data->when(isset($search), function ($query) use ($search) {
+            $like = '%' . $search . '%';
+            $query->where('name', 'like', $like);
+        });
+
+        // if (isset($status) && in_array($status, [0, 1])) {
+        //     $data->where('status', $status);
+        // }
+
+        $data->when(isset($status) && in_array($status, [0, 1]), function ($query) use ($status) {
+            $query->where('status', $status);
+        });
+
+        if (isset($role)) {
+            $data->whereHas('roles', function ($query) use ($role) {
+                $query->where('name', $role);
+            });
+        }
+
+        // $data->when(isset($status), function ($query) use ($status) {
+        //     $like = '%' . $status . '%';
+        //     $query->where('name', 'like', $like);
+        // });
+
+        return $data->paginate($this->limit($request));
     }
 
     public function getUserById($id)
