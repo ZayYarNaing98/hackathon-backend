@@ -47,7 +47,7 @@ class UserService
         }
 
         if (isset($data['role'])) {
-            $user->assignRole($data['role']);
+            $user->syncRoles($data['role']);
         }
 
         $user->update($data);
@@ -68,5 +68,10 @@ class UserService
         $user->delete();
 
         return response()->success(request(), $user, 'User Deleted Successfully.', 200, $startTime, 1);
+    }
+
+    public function getRoleName()
+    {
+        return $this->userInterface->getRoleName();
     }
 }

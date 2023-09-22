@@ -28,7 +28,7 @@ class AuthController extends Controller
 
             $result = new LoginResource($data);
 
-            return response()->success($request, $result, 'User Logged In Successfully.', 200, microtime(true), 1);
+            return response()->success($request, $result, 'User Logged In Successfully.', 200, $startTime, 1);
         } catch (Exception $e) {
             Log::channel('hackathon_daily_error')->error('Login Error' . $e->getMessage());
 

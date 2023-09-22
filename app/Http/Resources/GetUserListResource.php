@@ -23,7 +23,7 @@ class GetUserListResource extends JsonResource
             'email' => $this->email,
             'status' => $this->status,
             'image' => $this->image,
-            'roles' => RoleResource::collection($this->whenLoaded('roles')),
+            'roles' => $this->roles->first()->name,
         ];
     }
 }

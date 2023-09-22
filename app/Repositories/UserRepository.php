@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use App\Interfaces\UserRepositoryInterface;
+use Spatie\Permission\Models\Role;
 
 class UserRepository implements UserRepositoryInterface
 {
@@ -27,10 +28,6 @@ class UserRepository implements UserRepositoryInterface
             $like = '%' . $search . '%';
             $query->where('name', 'like', $like);
         });
-
-        // if (isset($status) && in_array($status, [0, 1])) {
-        //     $data->where('status', $status);
-        // }
 
         $data->when(isset($status) && in_array($status, [0, 1]), function ($query) use ($status) {
             $query->where('status', $status);
@@ -61,5 +58,12 @@ class UserRepository implements UserRepositoryInterface
         } else {
             return response()->error(request(), null, "User not found", 404, $startTime);
         }
+    }
+
+    public function getRoleName()
+    {
+        $data = Role::get();
+
+        return $data;
     }
 }

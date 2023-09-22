@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Http\Resources\GetUserListResource;
+use App\Http\Resources\RoleResource;
 
 class UserController extends Controller
 {
@@ -21,6 +22,11 @@ class UserController extends Controller
     public function __construct(UserService $service)
     {
         $this->service = $service;
+        // $this->middleware('permission:userList', ['only' => 'index']);
+        // $this->middleware('permission:userCreate', ['only' => 'store']);
+        // $this->middleware('permission:userShow', ['only' => 'show']);
+        // $this->middleware('permission:userUpdate', ['only' => 'update']);
+        // $this->middleware('permission:userDelete', ['only' => 'destroy']);
     }
 
     public function index(Request $request)
@@ -115,6 +121,21 @@ class UserController extends Controller
             Log::channel('hackathon_daily_error')->error('Error User Delete' . $e->getMessage());
 
             return response()->error(request(), null, $e->getMessage(), 500, $startTime);
+        }
+    }
+
+public function getRoleName()
+    {
+        try {
+            $startTime = microtime(true);
+
+            $data = $this->service->getRoleName();
+
+            $result = RoleResource::collection($data);
+
+            return response()->success(request(), $result, 'Role Retrieve Successfully.', 200, $startTime, count($data));
+        } catch (Exception $e) {
+            Log::channel('hackathon_daily_error')->error('Error Retrieve Role' . $e->getMessage());
         }
     }
 }

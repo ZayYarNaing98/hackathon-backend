@@ -9,4 +9,6 @@ interface UserRepositoryInterface
     public function getUsers(Request $request);
 
     public function getUserById($id);
+
+    public function getRoleName();
 }
