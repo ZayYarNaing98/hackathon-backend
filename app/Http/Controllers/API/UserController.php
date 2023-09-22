@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\UserUpdateRequest;
+use App\Http\Resources\GetUserByIdResource;
 use App\Http\Resources\GetUserListResource;
 use App\Http\Resources\RoleResource;
 
@@ -78,7 +79,13 @@ class UserController extends Controller
 
             $data = $this->service->getUserById($id);
 
-            return $data;
+            $result = GetUserByIdResource::collection($data);
+
+            if ($result) {
+                return response()->success(request(), $result, 'User Found Successfully', 200, $startTime, 1);
+            } else {
+                return response()->error(request(), null, "User not found", 404, $startTime);
+            }
         } catch (Exception $e) {
             Log::channel('hackathon_daily_error')->error('Error User Retrieved' . $e->getMessage());
 
@@ -142,14 +149,11 @@ class UserController extends Controller
     public function status(Request $request, $id)
     {
         try {
-            $startTime = microtime(true);
-
             $data = $this->service->status($request, $id);
 
             return $data;
-
         } catch (Exception $e) {
-            Log::channel('hackathon_daily_error')->error('Error Retrieve Role' . $e->getMessage());
+            Log::channel('hackathon_daily_error')->error('Error Status Change' . $e->getMessage());
         }
     }
 }

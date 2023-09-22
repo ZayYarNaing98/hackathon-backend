@@ -3,10 +3,9 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
-use App\Http\Resources\RoleResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class GetUserListResource extends JsonResource
+class GetUserByIdResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
