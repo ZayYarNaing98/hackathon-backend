@@ -74,4 +74,21 @@ class UserService
     {
         return $this->userInterface->getRoleName();
     }
+
+    public function status(Request $request, $id)
+    {
+        $startTime = microtime(true);
+
+        $user = User::where('id', $id)->first();
+
+        if (!$user) {
+            return response()->error(request(), null, 'User not found', 404);
+        }
+
+        $user->status = $request['status'];
+
+        $data = $user->save();
+
+        return response()->success($request, $data, 'User Status Change Successfully', 200, $startTime, 1);
+    }
 }

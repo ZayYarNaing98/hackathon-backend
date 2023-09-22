@@ -124,7 +124,7 @@ class UserController extends Controller
         }
     }
 
-public function getRoleName()
+    public function getRoleName()
     {
         try {
             $startTime = microtime(true);
@@ -134,6 +134,20 @@ public function getRoleName()
             $result = RoleResource::collection($data);
 
             return response()->success(request(), $result, 'Role Retrieve Successfully.', 200, $startTime, count($data));
+        } catch (Exception $e) {
+            Log::channel('hackathon_daily_error')->error('Error Retrieve Role' . $e->getMessage());
+        }
+    }
+
+    public function status(Request $request, $id)
+    {
+        try {
+            $startTime = microtime(true);
+
+            $data = $this->service->status($request, $id);
+
+            return $data;
+
         } catch (Exception $e) {
             Log::channel('hackathon_daily_error')->error('Error Retrieve Role' . $e->getMessage());
         }
