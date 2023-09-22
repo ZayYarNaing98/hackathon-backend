@@ -26,7 +26,8 @@ class GetUserListResource extends JsonResource
             'gender' => $this->gender,
             'status' => $this->status,
             'image' => $this->image,
-            'roles' => $this->roles->first()->name,
+            'roles' => optional($this->roles->first())->name,
+
         ];
     }
 }
