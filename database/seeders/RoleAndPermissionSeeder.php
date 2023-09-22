@@ -14,8 +14,8 @@ class RoleAndPermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        $admin = Role::create(['name' => 'admin']);
-        $customer = Role::create(['name' => 'customer']);
+        $master = Role::create(['name' => 'master']);
+        $client = Role::create(['name' => 'client']);
 
         $user_list = Permission::create(['name' => 'userList']);
         $user_show = Permission::create(['name' => 'userShow']);
@@ -23,7 +23,7 @@ class RoleAndPermissionSeeder extends Seeder
         $user_update = Permission::create(['name' => 'userUpdate']);
         $user_delete = Permission::create(['name' => 'userDelete']);
 
-        $admin->givePermissionTo([
+        $master->givePermissionTo([
             $user_list,
             $user_show,
             $user_create,

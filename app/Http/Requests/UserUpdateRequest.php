@@ -26,8 +26,11 @@ class UserUpdateRequest extends FormRequest
     {
         return [
             'name' => 'required|string|unique:users,name',
-            'email' => 'required|email|unique:users,email',
             'role' => 'nullable',
+            'phone' => 'nullable',
+            'address' => 'nullable',
+            'phone' => 'nullable',
+            'gender' => 'required|string'
         ];
     }
 

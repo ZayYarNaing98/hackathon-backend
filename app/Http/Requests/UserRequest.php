@@ -31,6 +31,9 @@ class UserRequest extends FormRequest
             'role' => 'nullable',
             'image' => 'nullable|array',
             'image.*' => 'mimes:jpeg,png,jpg,gif|dimensions:min_width=50,min_height=50|max:10240',
+            'phone' => 'nullable',
+            'address' => 'nullable',
+            'gender' => 'required|string'
         ];
     }
 

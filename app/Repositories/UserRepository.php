@@ -21,6 +21,7 @@ class UserRepository implements UserRepositoryInterface
     {
         $search = $request->input('search');
         $status = $request->input('status');
+        $role = $request->input('role');
 
         $data = User::with('roles');
 
@@ -33,16 +34,11 @@ class UserRepository implements UserRepositoryInterface
             $query->where('status', $status);
         });
 
-        if (isset($role)) {
-            $data->whereHas('roles', function ($query) use ($role) {
-                $query->where('name', $role);
+        $data->when(isset($role), function ($query) use ($role) {
+            $query->whereHas('roles', function ($query) use ($role) {
+                $query->where('name', 'like', '%' . $role . '%');
             });
-        }
-
-        // $data->when(isset($status), function ($query) use ($status) {
-        //     $like = '%' . $status . '%';
-        //     $query->where('name', 'like', $like);
-        // });
+        });
 
         return $data->paginate($this->limit($request));
     }
