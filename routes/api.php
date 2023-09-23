@@ -3,6 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\FeatureController;
+use App\Http\Controllers\API\ProfileController;
+use App\Http\Controllers\API\SubscriptionController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\CategoryController;
 
@@ -24,6 +27,7 @@ use App\Http\Controllers\API\CategoryController;
 Route::group(['middleware' => 'auth:sanctum'], function () {
 
     Route::apiResource('/users', UserController::class);
+
     Route::get('/roles', [UserController::class, 'getRoleName']);
     Route::put('/users/{id}/status', [UserController::class, 'status']);
     Route::post('/users/{id}/image', [UserController::class, 'storeImageByUserId']);
@@ -31,6 +35,14 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::delete('/users/{id}/image', [UserController::class, 'deleteImageByUserId']);
     Route::apiResource('/category', CategoryController::class);
 
+
+    Route::apiResource('/features', FeatureController::class);
+    Route::apiResource('/subscriptions', SubscriptionController::class);
+    Route::apiResource('/profiles', ProfileController::class);
+
+    Route::post('/profiles/{id}/banner', [ProfileController::class, 'storeImageByProfileId']);
+    Route::get('/profiles/{id}/banner', [ProfileController::class, 'getImageByProfileId']);
+    Route::delete('/profiles/{id}/banner', [ProfileController::class, 'deleteImageByProfileId']);
 });
 
 
