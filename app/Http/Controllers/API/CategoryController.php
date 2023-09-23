@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\API;
 
 use Exception;
-use App\Models\Category;
-use Illuminate\Http\Request;
 use App\Services\CategoryService;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
@@ -20,24 +18,23 @@ class CategoryController extends Controller
 
     public function __construct(CategoryService $service)
     {
-        $this->service=$service;
+        $this->service = $service;
     }
     public function index()
     {
-        try{
+        try {
             $startTime = microtime(true);
 
             $data = $this->service->getCategory();
 
             $result = CategoryListResource::collection($data);
 
-            return response()->success(request(), $result , 'Category Created Sucessfully.',201, $startTime, count($data));
-
-        } catch (Exception $e){
+            return response()->success(request(), $result, 'Category Retrieve Sucessfully.', 200, $startTime, count($data));
+        } catch (Exception $e) {
 
             Log::channel('hackathon_daily_error')->error('Error Category Retrieved' . $e->getMessage());
 
-            return response() ->error(request() , null, $e->getMessage(),500, $startTime);
+            return response()->error(request(), null, $e->getMessage(), 500, $startTime);
         };
     }
 
@@ -51,16 +48,14 @@ class CategoryController extends Controller
 
             $validatedData = $request->validated();
 
-            $data = $this-> service->storeCategory($validatedData);
+            $data = $this->service->storeCategory($validatedData);
 
-            return response()->success($request, $data, 'Category Created Sucessfully.',201, $startTime ,1);
-        } catch (Exception $e){
-            Log::channel('hackthon_daily_error')->error('Error Create Category' .$e->getMessage());
+            return response()->success($request, $data, 'Category Created Sucessfully.', 201, $startTime, 1);
+        } catch (Exception $e) {
+            Log::channel('hackthon_daily_error')->error('Error Create Category' . $e->getMessage());
 
             return response()->error($request, null, $e->getMessage(), 500, $startTime);
         }
-
-
     }
 
     /**
@@ -69,15 +64,15 @@ class CategoryController extends Controller
     public function show(string $id)
     {
         try {
-            $startTime =microtime(true);
+            $startTime = microtime(true);
 
             $data = $this->service->getCategoryById($id);
 
             return $data;
         } catch (Exception $e) {
-            Log::channel('hackthon_daily_error')->error('Error Category Retried' .$e->getMessage());
+            Log::channel('hackthon_daily_error')->error('Error Category Retrieved' . $e->getMessage());
 
-            return response()->error(request(), null, $e->getMessage(), 500,$startTime);
+            return response()->error(request(), null, $e->getMessage(), 500, $startTime);
         }
     }
 
@@ -93,11 +88,11 @@ class CategoryController extends Controller
 
             $validatedData = $request->validated();
 
-            $data = $this->service->updateCategoryById($validatedData,$id);
+            $data = $this->service->updateCategoryById($validatedData, $id);
 
             return $data;
         } catch (Exception $e) {
-            Log::channel('hackathon_daily_error')->error('Error User Update' . $e->getMessage());
+            Log::channel('hackathon_daily_error')->error('Error Category Update' . $e->getMessage());
 
             return response()->error($request, null, $e->getMessage(), 500, $startTime);
         }

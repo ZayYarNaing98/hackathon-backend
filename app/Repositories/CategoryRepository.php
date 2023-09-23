@@ -9,7 +9,7 @@ class CategoryRepository implements CategoryRepositoryInterface
 {
     public function getCategory()
     {
-        $category = Category::all();
+        $category = Category::with('profile')->get();
 
         return $category;
     }
@@ -18,7 +18,7 @@ class CategoryRepository implements CategoryRepositoryInterface
     {
         $startTime = microtime(true);
 
-        $category = Category::where('id', $id)->first();
+        $category = Category::where('id', $id)->with('profile')->first();
 
         if ($category) {
             return response()->success(request(), $category, 'Category Found Successfully', 200, $startTime, 1);
@@ -26,5 +26,4 @@ class CategoryRepository implements CategoryRepositoryInterface
             return response()->error(request(), null, "Category not found", 404, $startTime);
         }
     }
-
 }
