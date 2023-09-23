@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\FeatureController;
+use App\Http\Controllers\API\SubscriptionController;
 use App\Http\Controllers\API\UserController;
 
 /*
@@ -32,6 +33,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::delete('/users/{id}/image', [UserController::class, 'deleteImageByUserId']);
 
     Route::apiResource('/features', FeatureController::class);
+    Route::apiResource('/subscriptions', SubscriptionController::class);
 });
 
 
