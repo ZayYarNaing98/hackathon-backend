@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use App\Interfaces\UserRepositoryInterface;
 
 class UserService
@@ -91,5 +92,49 @@ class UserService
         $data = $user->save();
 
         return response()->success($request, $data, 'User Status Change Successfully', 200, $startTime, 1);
+    }
+
+    public function storeImageByUserId(Request $request, $id)
+    {
+        $startTime = microtime(true);
+
+        $user = User::where('id', $id)->first();
+
+        if (!$user) {
+            return response()->error(request(), null, 'User not found', 404);
+        }
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . "_" . $image->getClientOriginalName();
+            $image->storeAs('images/' . $imageName);
+
+            $user->image = $imageName;
+
+            $user->save();
+
+            return response()->success($request, $imageName, "Image Uploaded Successfully", 200, $startTime, 1);
+        } else {
+            return response()->error(request(), null, 'No image provided', 400);
+        }
+    }
+
+    public function getImageByUserId($id)
+    {
+        $startTime = microtime(true);
+
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->error(request(), null, 'User not found', 404, $startTime);
+        }
+
+        if (!$user->image) {
+            return response()->error(request(), null, 'User does not have an image', 400, $startTime);
+        }
+
+        $imageUrl = asset('images/' . $user->image);
+
+        return response()->success(request(), $imageUrl, 'User Image Found Successfully', 200, $startTime, 1);
     }
 }

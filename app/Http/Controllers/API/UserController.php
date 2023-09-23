@@ -5,13 +5,14 @@ namespace App\Http\Controllers\API;
 use Exception;
 use Illuminate\Http\Request;
 use App\Services\UserService;
+use App\Http\Requests\UserRequest;
+use App\Http\Requests\ImageRequest;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UserRequest;
+use App\Http\Resources\RoleResource;
 use App\Http\Requests\UserUpdateRequest;
 use App\Http\Resources\GetUserByIdResource;
 use App\Http\Resources\GetUserListResource;
-use App\Http\Resources\RoleResource;
 
 class UserController extends Controller
 {
@@ -143,17 +144,54 @@ class UserController extends Controller
             return response()->success(request(), $result, 'Role Retrieve Successfully.', 200, $startTime, count($data));
         } catch (Exception $e) {
             Log::channel('hackathon_daily_error')->error('Error Retrieve Role' . $e->getMessage());
+
+            return response()->error(request(), null, $e->getMessage(), 500, $startTime);
         }
     }
 
     public function status(Request $request, $id)
     {
+        $startTime = microtime(true);
+
         try {
             $data = $this->service->status($request, $id);
 
             return $data;
         } catch (Exception $e) {
             Log::channel('hackathon_daily_error')->error('Error Status Change' . $e->getMessage());
+
+            return response()->error(request(), null, $e->getMessage(), 500, $startTime);
+        }
+    }
+
+    public function storeImageByUserId(Request $request, $id)
+    {
+        $startTime = microtime(true);
+
+        try {
+            $data = $this->service->storeImageByUserId($request, $id);
+
+            return $data;
+        } catch (Exception $e) {
+            Log::channel('hackathon_daily_error')->error('Error Image Uploaded' . $e->getMessage());
+
+            return response()->error(request(), null, $e->getMessage(), 500, $startTime);
+        }
+    }
+
+    public function getImageByUserId($id)
+    {
+        $startTime = microtime(true);
+
+        try {
+            $data = $this->service->getImageByUserId($id);
+
+            return $data;
+        } catch (Exception $e) {
+
+            Log::channel('hackathon_daily_error')->error('Error Image Uploaded' . $e->getMessage());
+
+            return response()->error(request(), null, $e->getMessage(), 400, $startTime);
         }
     }
 }

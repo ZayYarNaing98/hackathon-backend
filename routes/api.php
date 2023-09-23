@@ -25,6 +25,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::apiResource('/users', UserController::class);
     Route::get('/roles', [UserController::class, 'getRoleName']);
     Route::put('/users/{id}/status', [UserController::class, 'status']);
+    Route::post('/users/{id}/image', [UserController::class, 'storeImageByUserId']);
+    Route::get('/users/{id}/image', [UserController::class, 'getImageByUserId']);
 
 });
 
