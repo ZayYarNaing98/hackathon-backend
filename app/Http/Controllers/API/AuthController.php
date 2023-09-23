@@ -26,9 +26,7 @@ class AuthController extends Controller
         try {
             $data = $this->service->login($request);
 
-            $result = new LoginResource($data);
-
-            return response()->success($request, $result, 'User Logged In Successfully.', 200, $startTime, 1);
+            return $data;
         } catch (Exception $e) {
             Log::channel('hackathon_daily_error')->error('Login Error' . $e->getMessage());
 
