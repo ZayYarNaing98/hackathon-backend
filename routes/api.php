@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\API\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('/users/{id}/image', [UserController::class, 'storeImageByUserId']);
     Route::get('/users/{id}/image', [UserController::class, 'getImageByUserId']);
     Route::delete('/users/{id}/image', [UserController::class, 'deleteImageByUserId']);
+    Route::apiResource('/category', CategoryController::class);
+
 });
 
 

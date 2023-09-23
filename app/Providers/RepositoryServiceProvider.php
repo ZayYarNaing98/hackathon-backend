@@ -4,8 +4,10 @@ namespace App\Providers;
 
 
 use App\Repositories\UserRepository;
-use App\Interfaces\UserRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
+use App\Repositories\CategoryRepository;
+use App\Interfaces\UserRepositoryInterface;
+use App\Interfaces\CategoryRepositoryInterface;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -23,5 +25,7 @@ class RepositoryServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->app->singleton(UserRepositoryInterface::class, UserRepository::class);
+
+        $this->app->singleton(CategoryRepositoryInterface::class , CategoryRepository::class);
     }
 }
