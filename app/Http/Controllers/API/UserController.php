@@ -189,7 +189,23 @@ class UserController extends Controller
             return $data;
         } catch (Exception $e) {
 
-            Log::channel('hackathon_daily_error')->error('Error Image Uploaded' . $e->getMessage());
+            Log::channel('hackathon_daily_error')->error('Error Image Retrieve' . $e->getMessage());
+
+            return response()->error(request(), null, $e->getMessage(), 400, $startTime);
+        }
+    }
+
+    public function deleteImageByUserId($id)
+    {
+        $startTime = microtime(true);
+
+        try {
+            $data = $this->service->deleteImageByUserId($id);
+
+            return $data;
+        } catch (Exception $e) {
+
+            Log::channel('hackathon_daily_error')->error('Error Image Delete' . $e->getMessage());
 
             return response()->error(request(), null, $e->getMessage(), 400, $startTime);
         }

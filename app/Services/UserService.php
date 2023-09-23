@@ -137,4 +137,26 @@ class UserService
 
         return response()->success(request(), $imageUrl, 'User Image Found Successfully', 200, $startTime, 1);
     }
+
+    public function deleteImageByUserId($id)
+    {
+        $startTime = microtime(true);
+
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->error(request(), null, 'User not found', 404, $startTime);
+        }
+
+        if (!$user->image) {
+            return response()->error(request(), null, 'User does not have an image', 400, $startTime);
+        }
+
+        Storage::delete('images/' . $user->image);
+
+        $user->image = null;
+        $user->save();
+
+        return response()->success(request(), null, 'User Image Delete Successfully', 200, $startTime, 1);
+    }
 }

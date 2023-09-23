@@ -27,7 +27,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::put('/users/{id}/status', [UserController::class, 'status']);
     Route::post('/users/{id}/image', [UserController::class, 'storeImageByUserId']);
     Route::get('/users/{id}/image', [UserController::class, 'getImageByUserId']);
-
+    Route::delete('/users/{id}/image', [UserController::class, 'deleteImageByUserId']);
 });
 
 
