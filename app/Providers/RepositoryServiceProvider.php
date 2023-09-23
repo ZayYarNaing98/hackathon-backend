@@ -8,7 +8,9 @@ use Illuminate\Support\ServiceProvider;
 use App\Interfaces\UserRepositoryInterface;
 use App\Repositories\SubscriptionRepository;
 use App\Interfaces\FeatureRepositoryInterface;
+use App\Interfaces\ProfileRepositoryInterface;
 use App\Interfaces\SubscriptionRepositoryInterface;
+use App\Repositories\ProfileRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -30,5 +32,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->singleton(FeatureRepositoryInterface::class, FeatureRepository::class);
 
         $this->app->singleton(SubscriptionRepositoryInterface::class, SubscriptionRepository::class);
+
+        $this->app->singleton(ProfileRepositoryInterface::class, ProfileRepository::class);
     }
 }
