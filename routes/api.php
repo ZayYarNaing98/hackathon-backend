@@ -56,6 +56,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
     Route::post('/payment', [PaymentController::class, 'store']);
 
+    Route::get('/profile/{id}/subscription', [PostController::class, 'getSubscriptionByPostId']);
+
 });
 
 Route::post('/users/client', [UserController::class, 'clientRegister']);

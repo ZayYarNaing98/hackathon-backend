@@ -9,6 +9,7 @@ use App\Http\Requests\PostRequest;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PostListResource;
+use App\Http\Resources\getSubscriptionByPostId;
 
 class PostController extends Controller
 {
@@ -116,5 +117,23 @@ class PostController extends Controller
 
             return response()->error(request(), null, $e->getMessage(), 500, $startTime);
         }
+    }
+
+    public function getSubscriptionByPostId(Request $request, $id)
+    {
+        try {
+
+            $startTime = microtime(true);
+
+            $data = $this->service->getSubscriptionByPostId($id);
+
+            $result = getSubscriptionByPostId::collection($data);
+
+            return response()->success($request, $result, 'Subscription Retrieved Successfully.', 200, $startTime, count($data));
+        } catch (Exception $e) {
+            Log::channel('hackathon_daily_error')->error('Error Subscription Retrieved' . $e->getMessage());
+
+            return response()->error(request(), null, $e->getMessage(), 500,   $startTime);
+        };
     }
 }

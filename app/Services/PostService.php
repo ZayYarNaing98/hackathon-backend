@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Models\Feature;
 use App\Interfaces\PostRepositoryInterface;
 use App\Interfaces\FeatureRepositoryInterface;
+use App\Models\SubscriptionProfile;
 
 class PostService
 {
@@ -60,5 +61,18 @@ class PostService
         $post->delete();
 
         return response()->success(request(), $post, 'Post Deleted Successfully.', 200, $startTime, 1);
+    }
+
+    public function getSubscriptionByPostId($id)
+    {
+        $startTime = microtime(true);
+
+        $data = SubscriptionProfile::where('profile_id', $id)->get();
+
+        if (!$data) {
+            return response()->error(request(), null, 'Post not found', 404, $startTime);
+        }
+
+        return $data;
     }
 }

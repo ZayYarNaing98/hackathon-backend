@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Profile;
+use App\Models\Subscription;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class SubscriptionProfile extends Model
 {
@@ -17,5 +19,10 @@ class SubscriptionProfile extends Model
     public function subscription()
     {
         return $this->belongsTo(Subscription::class);
+    }
+
+    public function profile()
+    {
+        return $this->belongsTo(Profile::class);
     }
 }
