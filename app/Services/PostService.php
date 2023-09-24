@@ -28,37 +28,37 @@ class PostService
 
     public function storePost($data)
     {
-        $feature = Post::create($data);
+        $post = Post::create($data);
 
-        return $feature;
+        return $post;
     }
 
-    public function updateFeatureById($data, $id)
+    public function updatePostById($data, $id)
     {
         $startTime = microtime(true);
 
-        $feature = Post::where('id', $id)->first();
+        $post = Post::where('id', $id)->first();
 
-        if (!$feature) {
-            return response()->error(request(), null, 'Feature not found', 404, $startTime);
+        if (!$post) {
+            return response()->error(request(), null, 'Post not found', 404, $startTime);
         }
 
-        $feature->update($data);
+        $post->update($data);
 
-        return response()->success(request(), $feature, 'Feature Updated Successfully.', 200, $startTime, 1);
+        return response()->success(request(), $post, 'Post Updated Successfully.', 200, $startTime, 1);
     }
 
-    public function deleteFeatureById($id)
+    public function deletePostById($id)
     {
         $startTime = microtime(true);
 
-        $feature = Post::where('id', $id)->first();
+        $post = Post::where('id', $id)->first();
 
-        if (!$feature) {
-            return response()->error(request(), null, 'Feature not found', 404, $startTime);
+        if (!$post) {
+            return response()->error(request(), null, 'Post not found', 404, $startTime);
         }
-        $feature->delete();
+        $post->delete();
 
-        return response()->success(request(), $feature, 'Feature Deleted Successfully.', 200, $startTime, 1);
+        return response()->success(request(), $post, 'Post Deleted Successfully.', 200, $startTime, 1);
     }
 }

@@ -10,8 +10,12 @@ use App\Interfaces\CategoryRepositoryInterface;
 use App\Repositories\FeatureRepository;
 use App\Repositories\SubscriptionRepository;
 use App\Interfaces\FeatureRepositoryInterface;
+use App\Interfaces\PostAttachmentRepositoryInterface;
+use App\Interfaces\PostRepositoryInterface;
 use App\Interfaces\ProfileRepositoryInterface;
 use App\Interfaces\SubscriptionRepositoryInterface;
+use App\Repositories\PostAttachmentRepository;
+use App\Repositories\PostRepository;
 use App\Repositories\ProfileRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -38,5 +42,9 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->singleton(SubscriptionRepositoryInterface::class, SubscriptionRepository::class);
 
         $this->app->singleton(ProfileRepositoryInterface::class, ProfileRepository::class);
+
+        $this->app->singleton(PostRepositoryInterface::class, PostRepository::class);
+
+        $this->app->singleton(PostAttachmentRepositoryInterface::class, PostAttachmentRepository::class);
     }
 }
