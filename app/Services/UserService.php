@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Interfaces\UserRepositoryInterface;
@@ -158,5 +159,19 @@ class UserService
         $user->save();
 
         return response()->success(request(), null, 'User Image Delete Successfully', 200, $startTime, 1);
+    }
+
+    public function clientRegister($data)
+    {
+        $user = User::create($data);
+
+        $role = Role::firstOrCreate(['name' => 'client']);
+        // if (isset($data['role'])) {
+        //     $user->assignRole($data['role']);
+        // }
+        $user->assignRole($role);
+
+
+        return $user;
     }
 }

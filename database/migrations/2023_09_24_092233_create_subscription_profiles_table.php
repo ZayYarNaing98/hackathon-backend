@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('subscription_profiles', function (Blueprint $table) {
             $table->id();
-            $table->foreign('subscripton_id');
-            $table->foreign('profile_id');
+            $table->foreignId('subscription_id');
+            $table->foreignId('profile_id');
             $table->timestamps();
         });
     }

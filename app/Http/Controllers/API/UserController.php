@@ -210,4 +210,22 @@ class UserController extends Controller
             return response()->error(request(), null, $e->getMessage(), 400, $startTime);
         }
     }
+
+    public function clientRegister(UserRequest $request)
+    {
+        try {
+
+            $startTime = microtime(true);
+
+            $validatedData = $request->validated();
+
+            $data = $this->service->clientRegister($validatedData);
+
+            return response()->success($request, $data, 'User Created Successfully.', 201, $startTime, 1);
+        } catch (Exception $e) {
+            Log::channel('hackathon_daily_error')->error('Error Create User' . $e->getMessage());
+
+            return response()->error($request, null, $e->getMessage(), 500, $startTime);
+        }
+    }
 }

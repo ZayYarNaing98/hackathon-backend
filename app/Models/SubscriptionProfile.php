@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class SubscriptionProfile extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'subscription_id',
+        'profile_id',
+    ];
+
+    public function subscription()
+    {
+        return $this->belongsTo(Subscription::class);
+    }
 }
