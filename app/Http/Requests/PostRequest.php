@@ -26,6 +26,7 @@ class PostRequest extends FormRequest
     {
         return [
             'profile_id' => 'required|integer',
+            'subscription_id' => 'required|integer',
             'title' => 'required|string',
             'description' => 'required|string',
         ];

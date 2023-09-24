@@ -14,13 +14,19 @@ class Post extends Model
 
     protected $fillable = [
         'profile_id',
+        'subscription_id',
         'title',
         'description',
     ];
 
-    public function profile():BelongsTo
+    public function profile(): BelongsTo
     {
         return $this->belongsTo(Profile::class);
+    }
+
+    public function subscription(): BelongsTo
+    {
+        return $this->belongsTo(Subscription::class);
     }
 
     public function post_attachment(): HasMany

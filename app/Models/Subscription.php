@@ -21,4 +21,9 @@ class Subscription extends Model
     {
         return $this->hasMany(Feature::class);
     }
+
+    public function posts(): HasMany
+    {
+        return $this->hasMany(Post::class);
+    }
 }

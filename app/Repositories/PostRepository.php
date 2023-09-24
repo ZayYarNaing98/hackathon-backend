@@ -10,7 +10,7 @@ class PostRepository implements PostRepositoryInterface
 {
     public function getPost()
     {
-        $post = Post::with('profile', 'post_attachment')->get();
+        $post = Post::with('profile', 'subscription', 'post_attachment')->get();
 
         return $post;
     }
@@ -19,7 +19,7 @@ class PostRepository implements PostRepositoryInterface
     {
         $startTime = microtime(true);
 
-        $post = Post::where('id', $id)->with('profile','post_attachment')->get();
+        $post = Post::where('id', $id)->with('profile', 'subscription', 'post_attachment')->get();
 
         if ($post) {
             return response()->success(request(), $post, 'Post Found Successfully', 200, $startTime, 1);

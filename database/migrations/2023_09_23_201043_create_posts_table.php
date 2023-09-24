@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('profile_id');
+            $table->foreignId('subscription_id');
             $table->string('title');
             $table->longText('description');
             $table->timestamps();
