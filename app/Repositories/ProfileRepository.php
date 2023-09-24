@@ -18,7 +18,7 @@ class ProfileRepository implements ProfileRepositoryInterface
     {
         $startTime = microtime(true);
 
-        $profile = Profile::where('id', $id)->get();
+        $profile = Profile::where('user_id', $id)->get();
 
         if ($profile) {
             return response()->success(request(), $profile, 'Profile Found Successfully', 200, $startTime, 1);
