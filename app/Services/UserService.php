@@ -166,11 +166,8 @@ class UserService
         $user = User::create($data);
 
         $role = Role::firstOrCreate(['name' => 'client']);
-        // if (isset($data['role'])) {
-        //     $user->assignRole($data['role']);
-        // }
-        $user->assignRole($role);
 
+        $user->assignRole($role);
 
         return $user;
     }
