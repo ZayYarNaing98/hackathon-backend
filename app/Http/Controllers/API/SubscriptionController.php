@@ -76,7 +76,6 @@ class SubscriptionController extends Controller
 
             return response()->success(request(), $result, 'Subscription Found Successfully', 200, $startTime, 1);
 
-            // return $data;
         } catch (Exception $e) {
             Log::channel('hackathon_daily_error')->error('Error Subscription Retrieved' . $e->getMessage());
 
