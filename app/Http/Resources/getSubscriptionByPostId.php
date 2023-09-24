@@ -17,6 +17,7 @@ class getSubscriptionByPostId extends JsonResource
         // return parent::toArray($request);
         return [
             'id' => $this-> id,
+            'subscription_id' => $this->subscription_id,
             'subscription' => $this->subscription->name,
             'profile_id' => $this->profile_id,
         ];
