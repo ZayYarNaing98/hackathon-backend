@@ -55,7 +55,7 @@ class FeatureController extends Controller
 
             return response()->success($request, $data, 'Feature Created Successfully.', 201, $startTime, 1);
         } catch (Exception $e) {
-            Log::channel('web_daily_error')->error('Error Created Feature' . $e->getMessage());
+            Log::channel('hackathon_daily_error')->error('Error Feature Create' . $e->getMessage());
 
             return response()->error($request, null, $e->getMessage(), 500, $startTime);
         }

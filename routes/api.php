@@ -8,6 +8,7 @@ use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\FeatureController;
 use App\Http\Controllers\API\ProfileController;
 use App\Http\Controllers\API\CategoryController;
+use App\Http\Controllers\API\PaymentController;
 use App\Http\Controllers\API\SubscriptionController;
 use App\Http\Controllers\API\PostAttachmentController;
 
@@ -52,6 +53,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('/posts/{id}/attachments', [PostAttachmentController::class, 'getAttachmentByPostId']);
     Route::post('/posts/{id}/attachments', [PostAttachmentController::class, 'storePostAttachment']);
     Route::delete('/posts/{id}/attachments', [PostAttachmentController::class, 'deletePostAttachmentById']);
+
+    Route::post('/payment', [PaymentController::class, 'store']);
 
 });
 
