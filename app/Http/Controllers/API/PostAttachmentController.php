@@ -23,7 +23,6 @@ class PostAttachmentController extends Controller
 
     public function getAttachmentByPostId($id)
     {
-        // dd('hello');
         $startTime = microtime(true);
 
         try {
