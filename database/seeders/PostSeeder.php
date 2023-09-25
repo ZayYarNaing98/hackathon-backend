@@ -16,57 +16,57 @@ class PostSeeder extends Seeder
         Post::create([
             'profile_id' => 1,
             'subscription_id' => 3,
-            'title' => 'test',
-            'description' => 'test',
+            'title' => 'Summer Sale',
+            'description' => 'Rem ipsum sedubel anatis rem ipsum sedubel anatis',
         ]);
 
         Post::create([
             'profile_id' => 1,
             'subscription_id' => 3,
-            'title' => 'test',
-            'description' => 'test',
+            'title' => 'Big Sale',
+            'description' => "Don't know where to start in?",
         ]);
 
         Post::create([
             'profile_id' => 1,
             'subscription_id' => 3,
-            'title' => 'test',
-            'description' => 'test',
+            'title' => 'Gift Voucher',
+            'description' => 'The trainees can enroll from start today. don’t miss chance',
         ]);
 
         Post::create([
             'profile_id' => 1,
             'subscription_id' => 3,
-            'title' => 'test',
-            'description' => 'test',
+            'title' => 'Giveaway Time',
+            'description' => "Don't know where to start in?",
         ]);
 
         Post::create([
             'profile_id' => 2,
             'subscription_id' => 3,
-            'title' => 'test',
-            'description' => 'test',
+            'title' => 'Electronics collection',
+            'description' => "Don't know where to start in?",
         ]);
 
         Post::create([
             'profile_id' => 2,
             'subscription_id' => 3,
-            'title' => 'test',
-            'description' => 'test',
+            'title' => '9.9 super sale',
+            'description' => "Don't know where to start in?",
         ]);
 
         Post::create([
             'profile_id' => 2,
             'subscription_id' => 3,
-            'title' => 'test',
-            'description' => 'test',
+            'title' => 'Organic skincare sale',
+            'description' => 'The trainees can enroll from start today. don’t miss chance',
         ]);
 
         Post::create([
             'profile_id' => 1,
             'subscription_id' => 3,
-            'title' => 'test',
-            'description' => 'test',
+            'title' => 'New product release',
+            'description' => "Don't know where to start in?",
         ]);
 
     }
