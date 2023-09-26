@@ -34,6 +34,8 @@ class UserRepository implements UserRepositoryInterface
             $query->where('status', $status);
         });
 
+
+
         $data->when(isset($role), function ($query) use ($role) {
             $query->whereHas('roles', function ($query) use ($role) {
                 $query->where('name', 'like', '%' . $role . '%');
