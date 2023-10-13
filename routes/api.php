@@ -37,7 +37,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('/users/{id}/image', [UserController::class, 'getImageByUserId']);
     Route::delete('/users/{id}/image', [UserController::class, 'deleteImageByUserId']);
 
-    Route::apiResource('/category', CategoryController::class);
+    // Route::apiResource('/category', CategoryController::class);
 
     Route::apiResource('/features', FeatureController::class);
 
@@ -59,6 +59,9 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('/profile/{id}/subscription', [PostController::class, 'getSubscriptionByPostId']);
 
 });
+
+Route::apiResource('/category', CategoryController::class);
+
 
 Route::post('/users/client', [UserController::class, 'clientRegister']);
 
